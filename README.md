@@ -124,6 +124,8 @@ Example:
 ./mot16.py -m ../motchallenge/seqmaps/frcnn-train.txt -o ../motchallenge/res/MOT16/iou-tracker -b ../data/mot17/train -sl 0 -sh 0.9 -si 0.3 -tm 5
 ```
 
+The seqmap files can be found under "seqmaps" and need to be copied to the respective directory of the
+motchallenge devkit.
 You should obtain something like the following results for the train set:
 
 ##### MOT16 Train Results
