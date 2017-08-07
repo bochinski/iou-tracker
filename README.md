@@ -63,7 +63,7 @@ tracker.trackerName = 'iou-tracker';
 
 and run the script.
 
-Note that you still need a working python environment.
+Note that you still need a working python environment with numpy installed.
 You should obtain something like the following results for the 'DETRAC-Train' set:
 
 ##### DETRAC-Train Results

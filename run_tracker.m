@@ -29,8 +29,8 @@ try
     ret = py.iou_tracker.track_iou_matlab_wrapper(py.numpy.array(baselinedetections(:).'), sigma_l, sigma_h, sigma_iou, t_min);
     
 catch exception
-    disp("error while calling the python tracking module: ")
-    disp(" ")
+    disp('error while calling the python tracking module: ')
+    disp(' ')
     disp(getReport(exception))
 end
 speed = ret{1};
