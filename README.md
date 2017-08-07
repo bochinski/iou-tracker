@@ -18,8 +18,8 @@ If you think our work is useful in your research, please consider citing:
 ```
 
 ## Demo
-Several demo scripts are included to reproduce the reported results on the UA-DETRAC
-and the MOT benchmark.
+Several demo scripts are included to reproduce the reported results on the [UA-DETRAC](http://detrac-db.rit.albany.edu/)
+and the [MOT](https://motchallenge.net/) benchmarks.
 
 Basic demo script:
 ```
@@ -46,7 +46,7 @@ optional arguments:
                         minimum track length
 ```
 
-Example:
+Example for the MOT17-04 sequence (detections can be downloaded [here](https://motchallenge.net/data/MOT17/)):
 ```
 ./demo.py -d ../mot17/train/MOT17-04-SDP/det/det.txt -o res/iou-tracker/MOT17-04-SDP.txt
 ```
@@ -69,14 +69,25 @@ You should obtain something like the following results for the 'DETRAC-Train' se
 ##### DETRAC-Train Results
 | Detector | PR-Rcll | PR-Prcn | PR-FAR | PR-MT | PR-PT  | PR-ML | PR-FP   | PR-FN   | PR-IDs| PR-FM | PR-MOTA | PR-MOTP | PR-MOTAL |
 | -------- | ------- | ------- | ------ | ----- | ------ | ----- | ------- | ------- | ----- | ----- | ------- | ------- | -------- |
-| EB       |22.12    |31.53    |0.26    |17.65  |13.22   |18.41  |14796.52 |171806.84|2311.25|2445.89|19.41    |28.89    |19.78     |
+| EB       |37.86    |44.73    |0.10    |32.34  |12.88   |20.93  |7958.82  |163739.85|4129.40|4221.89|35.77    |40.81    |36.48     |
 | R-CNN    |27.86    |52.90    |0.11    |19.53  |17.03   |18.56  |9047.95  |157521.18|4842.18|4969.57|25.46    |44.39    |26.29     |
+| CompACT  |25.15    |49.64    |0.09    |18.40  |14.15   |18.91  |7681.50  |152078.88|2177.44|2282.27|23.44    |42.88    |23.8191   |
+| ACF      |27.39    |52.68    |0.14    |20.24  |15.66   |19.40  |11553.49 |161293.27|1845.49|2101.44|25.07    |44.71    |25.39     |
 
 ##### DETRAC-Test (Overall) Results
-| Detector | PR-Rcll | PR-Prcn | PR-FAR | PR-MT | PR-PT  | PR-ML | PR-FP   | PR-FN   | PR-IDs| PR-FM | PR-MOTA | PR-MOTP | PR-MOTAL |
-| -------- | ------- | ------- | ------ | ----- | ------ | ----- | ------- | ------- | ----- | ----- | ------- | ------- | -------- |
-| EB       |22.11    |31.53    |0.26    |17.65  |13.22   |18.41  |14796.52 |171806.84|2311.25|2445.89|19.41    |28.89    |19.77     |
-| R-CNN    |20.37    |44.86    |0.40    |13.81  |16.40   |20.69  |22535.15 |193041.87|5029.42|5795.73|16.01    |38.35    |16.81     |
+The reference results are taken from the [UA-DETRAC results](http://detrac-db.rit.albany.edu/TraRet) site. Only the best tracker / detector
+combination is displayed for each reference method.
+
+| Tracker       | Detector | PR-MOTA | PR-MOTP     | PR-MT     | PR-ML     | PR-IDs   | PR-FM    | PR-FP      | PR-FN      | Speed          |
+| ------------- | -------- | ------- | ----------- | --------- | --------- | -------- | -------- | ---------- | ---------- | -------------- |
+|CEM            | CompACT  | 5.1\%     |35.2\%     |3.0\%      |35.3\%     |**267.9** |**352.3** |**12341.2** |260390.4    |4.62 fps        |
+|CMOT           | CompACT  | 12.6\%    |36.1\%     |16.1\%     |18.6\%     |285.3     |1516.8    |57885.9     |**167110.8**| & 3.79 fps     |
+|GOG            | CompACT  | 14.2\%    |37.0\%     |13.9\%     |19.9\%     |3334.6    |3172.4    |32092.9     |180183.8    |390 fps         |
+|DCT            | R-CNN    | 11.7\%    |38.0\%     |10.1\%     |22.8\%     |758.7     |742.9     |336561.2    |210855.6    |0.71 fps        |
+|H<sup>2</sup>T | CompACT  | 12.4\%    |35.7\%     |14.8\%     |19.4\%     |852.2     |1117.2    |51765.7     |173899.8    | 3.02 fps       |
+|IHTLS          | CompACT  | 11.1\%    |36.8\%     |13.8\%     |19.9\%     |953.6     |3556.9    |53922.3     |180422.3    |19.79 fps       |
+|**IOU**        | R-CNN    |16.0\%     |**38.3\%** |13.8\%     |20.7\%     |5029.4    |5795.7    |22535.1     |193041.9    |**100,840 fps** |
+|**IOU**        | EB       |**19.4\%** |28.9\%     |**17.7\%** |**18.4\%** |2311.3    |2445.9    |14796.5	  |171806.8    |6,902 fps       |
 
 ##### EB detections
 The public detections of [EB](http://zyb.im/research/EB/) are not available on the
