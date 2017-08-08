@@ -7,7 +7,7 @@
 
 from time import time
 
-from util import load_mot, save_to_csv, iou
+from util import load_mot, iou
 
 
 def track_iou(detections, sigma_l, sigma_h, sigma_iou, t_min):
@@ -36,23 +36,21 @@ def track_iou(detections, sigma_l, sigma_h, sigma_iou, t_min):
 
         updated_tracks = []
         for track in tracks_active:
-            # matches = [det for det in dets if track.get_iou(det['bbox']) >= min_iou]
-            # high_matches = [match for match in matches if match['score'] >= thresh_high]
-            high_matches = [det for det in dets if iou(track['bboxes'][-1], det['bbox']) >= sigma_iou]
+            if len(dets) > 0:
+                # get det with highest iou
+                best_match = max(dets, key=lambda x: iou(track['bboxes'][-1], x['bbox']))
+                if iou(track['bboxes'][-1], best_match['bbox']) >= sigma_iou:
+                    track['bboxes'].append(best_match['bbox'])
+                    track['max_score'] = max(track['max_score'], best_match['score'])
 
-            if len(high_matches) > 0:
-                # extract best matching detection
-                best_match = max(high_matches, key=lambda x: iou(track['bboxes'][-1], x['bbox']))
-                track['bboxes'].append(best_match['bbox'])
-                track['max_score'] = max(track['max_score'], best_match['score'])
+                    updated_tracks.append(track)
 
-                updated_tracks.append(track)
+                    # remove from best matching detection from detections
+                    del dets[dets.index(best_match)]
 
-                # remove from detections
-                del dets[dets.index(best_match)]
-
-            else:
-                # finish track when there is no suitable match
+            # if track was not updated
+            if len(updated_tracks) == 0 or track is not updated_tracks[-1]:
+                # finish track when the conditions are met
                 if track['max_score'] >= sigma_h and len(track['bboxes']) >= t_min:
                     tracks_finished.append(track)
 
