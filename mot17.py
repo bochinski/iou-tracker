@@ -50,7 +50,6 @@ def main(args):
             start = time()
             tracks = track_iou(detections, sigma_l, sigma_h, sigma_iou, t_min)
             end = time()
-            time_all += end-start
 
             num_frames = len(detections)
             print("finished " + seq + " at " + str(int(num_frames / (end - start))) + " fps!")
