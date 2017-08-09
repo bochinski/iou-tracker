@@ -19,7 +19,7 @@ If you think our work is useful in your research, please consider citing:
 
 ## Demo
 Several demo scripts are included to reproduce the reported results on the [UA-DETRAC](http://detrac-db.rit.albany.edu/)
-and the [MOT](https://motchallenge.net/) benchmarks.
+and the [MOT](https://motchallenge.net/) 16/17 benchmarks.
 
 Basic demo script:
 ```
@@ -97,8 +97,56 @@ publication are available here:
 * [EB Train](https://tubcloud.tu-berlin.de/s/EtC6cFEYsAU0gFQ/download)
 * [EB Test](https://tubcloud.tu-berlin.de/s/oKM3dYhJbMFl1dY/download)
 
-### MOT
-To reproduce the reported MOT16 results, use the mot16.py script:
+### MOT17
+The IOU Tracker was evaluated on the MOT17 benchmark as well. To determine the best parameters for each detector, an
+exhaustive search of the parameter space was performed similar to the one of the MOT16 evaluation reported in the paper.
+The best configuration for the training sequences is:
+
+| Detector | ![sigma<sub>l<sub>](http://www.sciweavers.org/tex2img.php?eq=\sigma_l&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=)| ![sigma<sub>h</sub>](http://www.sciweavers.org/tex2img.php?eq=\sigma_{h}&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=) | ![sigma<sub>IOU</sub>](http://www.sciweavers.org/tex2img.php?eq=\sigma_{IOU}&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=) | ![t<sub>min</sub>](http://www.sciweavers.org/tex2img.php?eq=t_{min}&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=)      |
+| -------- | ----------------- | ----------------- | ------------------- | -------------------- |
+|DPM       | -0.5              | 0.5               | 0.4                 | 4                    |
+|FRCNN     | 0.0               | 0.9               | 0.3                 | 3                    |
+|SPD       | 0.4               | 0.5               | 0.2                 | 2                    |
+
+To generate the MOT17 results listed at [MOT17 results](https://motchallenge.net/results/MOT17/), use the mot17.py script.
+Note that the parameters from above are hard-coded in the script for your convenience.
+```
+usage: mot17.py [-h] -m SEQMAP -o RES_DIR -b BENCHMARK_DIR
+
+IOU Tracker MOT17 demo script. The best parameters for each detector are
+hardcoded.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -m SEQMAP, --seqmap SEQMAP
+                        full path to the seqmap file to evaluate
+  -o RES_DIR, --res_dir RES_DIR
+                        path to the results directory
+  -b BENCHMARK_DIR, --benchmark_dir BENCHMARK_DIR
+                        path to the sequence directory
+```
+
+Examples (you will probably need to adapt the paths):
+```
+./mot17.py -m ../motchallenge/seqmaps/c10-train.txt -o ../motchallenge/res/MOT17/iou-tracker -b ../data/mot17/train
+./mot17.py -m ../motchallenge/seqmaps/c10-test.txt -o ../motchallenge/res/MOT17/iou-tracker -b ../data/mot17/test
+```
+
+##### MOT17 Train Results
+| Detector | IDF1 | IDP | IDR | Rcll | Prcn | FAR | GT  | MT  | PT  | ML  | FP  | FN  | IDs | FM  | MOTA | MOTP | MOTAL |
+| -------- | ---- | --- | --- | ---- | ---- | --- | --- | --- | --- | --- | --- | --- | --- | --- | ---- | ---- | ----- |
+|DPM       |14.3  |39.3 |8.7  | 35.8 | 88.1 | 1.02|546  |45   |195  |306  |5420 |72140|719  | 844 |  30.3|  77.1|  30.9 |
+|FRCNN     |21.6  |47.5 |14.0 | 52.1 | 97.0 | 0.34|546  |111  |268  |167  |1804 |53774|857  | 876 |  49.7|  88.1|  50.5 |
+|SDP       |24.4  |44.5 |16.8 | 66.8 | 96.8 | 0.47|546  |197  |240  |109  |2509 |37280|2058 | 2065|  62.7|  83.2|  64.6 |
+|All       |9.9   |21.5 |6.4  | 51.6 | 94.7 | 0.61|1638 |353  |703  |582  |97331|63194|3634 | 3785|  47.6|  83.4|  48.7 |
+
+##### MOT17 Test Results
+| MOTA | MOTP |	FAF	| MT    | ML    | FP    | FN     | ID Sw. | Frag |
+| ---- | ---- | --- | ----- | ----- | ----- | ------ | ------ | ---- |
+| 45.5 |76.9  |1.1	|15.7\% |40.5\% |19,993	|281,643 | 5,988  |7,404 |
+
+### MOT16
+To reproduce the reported [MOT16 results](https://motchallenge.net/results/MOT16/) of the paper, use the mot16.py script:
 
 ```
 $ ./mot16.py -h
@@ -126,7 +174,7 @@ optional arguments:
                         minimum track length
 ```
 
-Example:
+Examples (you will probably need to adapt the paths):
 ```
 # SDP:
 ./mot16.py -m ../motchallenge/seqmaps/sdp-train.txt -o ../motchallenge/res/MOT16/iou-tracker -b ../data/mot17/train
