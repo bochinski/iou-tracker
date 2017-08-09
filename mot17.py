@@ -18,7 +18,6 @@ def main(args):
     with open(args.seqmap) as fd:
         seqs = [line.rstrip('\n') for line in fd]
 
-    time_all = 0
     for idx, seq in enumerate(seqs):
         if seq == "name" or seq == "":
             continue
@@ -57,7 +56,6 @@ def main(args):
             print("finished " + seq + " at " + str(int(num_frames / (end - start))) + " fps!")
 
             save_to_csv(out_path, tracks)
-    print time_all
 
 if __name__ == '__main__':
 
