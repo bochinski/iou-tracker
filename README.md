@@ -102,7 +102,7 @@ The IOU Tracker was evaluated on the MOT17 benchmark as well. To determine the b
 exhaustive search of the parameter space was performed similar to the one of the MOT16 evaluation reported in the paper.
 The best configuration for the training sequences is:
 
-| Detector | ![sigma<sub>l<sub>](http://www.sciweavers.org/tex2img.php?eq=\sigma_l&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=)| ![sigma<sub>h</sub>](http://www.sciweavers.org/tex2img.php?eq=\sigma_{h}&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=) | ![sigma<sub>IOU</sub>](http://www.sciweavers.org/tex2img.php?eq=\sigma_{IOU}&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=) | ![t<sub>min</sub>](http://www.sciweavers.org/tex2img.php?eq=t_{min}&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=)      |
+| Detector | ![sigma_l](http://latex.codecogs.com/gif.latex?\sigma_l)| ![sigma_h](http://latex.codecogs.com/gif.latex?\sigma_h) | ![sigma_iou](http://latex.codecogs.com/gif.latex?\sigma_{IOU}) | ![t_min](http://latex.codecogs.com/gif.latex?t_{min})      |
 | -------- | ----------------- | ----------------- | ------------------- | -------------------- |
 |DPM       | -0.5              | 0.5               | 0.4                 | 4                    |
 |FRCNN     | 0.0               | 0.9               | 0.3                 | 3                    |
