@@ -28,16 +28,21 @@ def load_mot(detections):
         # assume it is an array
         assert isinstance(detections, np.ndarray), "only numpy arrays or *.csv paths are supported as detections."
         raw = detections.astype(np.float32)
+    raw[:, 4:6] += raw[:, 2:4]
+    sort_idx = np.argsort(raw[:, 0])
+    raw = raw[sort_idx, :]
+    frames = np.split(raw, np.where(np.diff(raw[:, 0]))[0]+1, axis=0)
 
     end_frame = int(np.max(raw[:, 0]))
+    ptr = 0
     for i in range(1, end_frame+1):
-        idx = raw[:, 0] == i
-        bbox = raw[idx, 2:6]
-        bbox[:, 2:4] += bbox[:, 0:2]  # x1, y1, w, h -> x1, y1, x2, y2
-        scores = raw[idx, 6]
         dets = []
-        for bb, s in zip(bbox, scores):
-            dets.append({'bbox': (bb[0], bb[1], bb[2], bb[3]), 'score': s})
+        if ptr < len(frames) and frames[ptr][0, 0] == i:
+            bbox = frames[ptr][:, 2:6]
+            scores = frames[ptr][:, 6]
+            for bb, s in zip(bbox, scores):
+                dets.append({'bbox': (bb[0], bb[1], bb[2], bb[3]), 'score': s})
+            ptr += 1
         data.append(dets)
 
     return data
