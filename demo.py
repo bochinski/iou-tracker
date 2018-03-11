@@ -15,8 +15,10 @@ from util import load_mot, save_to_csv
 
 
 def main(args):
+    print('loading detections...')
     detections = load_mot(args.detection_path)
 
+    print('tracking...')
     start = time()
     tracks = track_iou(detections, args.sigma_l, args.sigma_h, args.sigma_iou, args.t_min)
     end = time()

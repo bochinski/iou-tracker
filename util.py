@@ -7,7 +7,7 @@
 
 import numpy as np
 import csv
-
+from progressbar import ProgressBar
 
 def load_mot(detections):
     """
@@ -35,6 +35,7 @@ def load_mot(detections):
 
     end_frame = int(np.max(raw[:, 0]))
     ptr = 0
+    pbar = ProgressBar(max_value=end_frame)
     for i in range(1, end_frame+1):
         dets = []
         if ptr < len(frames) and frames[ptr][0, 0] == i:
@@ -44,6 +45,8 @@ def load_mot(detections):
                 dets.append({'bbox': (bb[0], bb[1], bb[2], bb[3]), 'score': s})
             ptr += 1
         data.append(dets)
+        pbar.update(i-1)
+    pbar.finish()
 
     return data
 

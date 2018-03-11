@@ -9,6 +9,7 @@ from time import time
 
 from util import load_mot, iou
 
+from progressbar import ProgressBar
 
 def track_iou(detections, sigma_l, sigma_h, sigma_iou, t_min):
     """
@@ -30,6 +31,7 @@ def track_iou(detections, sigma_l, sigma_h, sigma_iou, t_min):
     tracks_active = []
     tracks_finished = []
 
+    pbar = ProgressBar(max_value=len(detections))
     for frame_num, detections_frame in enumerate(detections, start=1):
         # apply low threshold to detections
         dets = [det for det in detections_frame if det['score'] >= sigma_l]
@@ -57,6 +59,9 @@ def track_iou(detections, sigma_l, sigma_h, sigma_iou, t_min):
         # create new tracks
         new_tracks = [{'bboxes': [det['bbox']], 'max_score': det['score'], 'start_frame': frame_num} for det in dets]
         tracks_active = updated_tracks + new_tracks
+        
+        pbar.update(frame_num-1)
+    pbar.finish()
 
     # finish all remaining active tracks
     tracks_finished += [track for track in tracks_active
