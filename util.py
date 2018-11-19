@@ -109,3 +109,31 @@ def iou(bbox1, bbox2):
     size_union = size_1 + size_2 - size_intersection
 
     return size_intersection / size_union
+
+
+def track_interpolation(tracks_finished):
+    # TODO: put some discription here
+    processed_tracks = []
+    
+    for ftracks in tracks_finished:
+        starting_frame = ftracks[0]['frame']
+        ending_frame = ftracks[-1]['frame']
+        interp_track = np.zeros((ending_frame - starting_frame + 1, 4))
+        
+        frames_present = []
+        
+        for fframe in ftracks:
+            interp_track[fframe['frame'] - starting_frame, :] = fframe['roi']
+            frames_present.append(fframe['frame'])
+        
+        frames_present_abs = (np.array(frames_present) - starting_frame).tolist()
+        
+        frames_missing = [f for f in range(starting_frame, ending_frame + 1) if f not in frames_present]
+        frames_missing_abs = (np.array(frames_missing) - starting_frame).tolist()
+        
+        for i in range(4):
+            interp_track[frames_missing_abs, i] = np.interp(frames_missing, frames_present, interp_track[frames_present_abs, i])
+        
+        processed_tracks.append([{'roi': interp_track[f, :].tolist(), 'frame': f + starting_frame} for f in range(ending_frame - starting_frame + 1)])
+    
+    return processed_tracks
