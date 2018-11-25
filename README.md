@@ -1,9 +1,7 @@
-## IOU Tracker
-Python implementation of the IOU Tracker described in the AVSS 2017 paper
-[High-Speed Tracking-by-Detection Without Using Image Information](http://elvera.nue.tu-berlin.de/files/1517Bochinski2017.pdf).
+## Kalman-IOU Tracker
+Python implementation of the Kalman-IOU Tracker.
 
-This project is released under the MIT License (details in LICENSE file).
-If you think our work is useful in your research, please consider citing:
+This tracker is a modified version based on the original [IOU Tracker](https://github.com/bochinski/iou-tracker). Please consider citing their work:
 
 ```
 @INPROCEEDINGS{1517Bochinski2017,
@@ -16,6 +14,8 @@ If you think our work is useful in your research, please consider citing:
 	URL = {http://elvera.nue.tu-berlin.de/files/1517Bochinski2017.pdf},
 	}
 ```
+
+
 
 ## Demo
 Several demo scripts are included to reproduce the reported results on the [UA-DETRAC](http://detrac-db.rit.albany.edu/)
@@ -81,13 +81,14 @@ combination is displayed for each reference method.
 | Tracker       | Detector | PR-MOTA | PR-MOTP     | PR-MT     | PR-ML     | PR-IDs   | PR-FM    | PR-FP      | PR-FN      | Speed          |
 | ------------- | -------- | ------- | ----------- | --------- | --------- | -------- | -------- | ---------- | ---------- | -------------- |
 |CEM            | CompACT  | 5.1\%     |35.2\%     |3.0\%      |35.3\%     |**267.9** |**352.3** |**12341.2** |260390.4    |4.62 fps        |
-|CMOT           | CompACT  | 12.6\%    |36.1\%     |16.1\%     |18.6\%     |285.3     |1516.8    |57885.9     |**167110.8**| & 3.79 fps     |
+|CMOT           | CompACT  | 12.6\%    |36.1\%     |16.1\%     |18.6\%     |285.3     |1516.8    |57885.9     | 167110.8   | & 3.79 fps     |
 |GOG            | CompACT  | 14.2\%    |37.0\%     |13.9\%     |19.9\%     |3334.6    |3172.4    |32092.9     |180183.8    |390 fps         |
 |DCT            | R-CNN    | 11.7\%    |38.0\%     |10.1\%     |22.8\%     |758.7     |742.9     |336561.2    |210855.6    |0.71 fps        |
 |H<sup>2</sup>T | CompACT  | 12.4\%    |35.7\%     |14.8\%     |19.4\%     |852.2     |1117.2    |51765.7     |173899.8    | 3.02 fps       |
 |IHTLS          | CompACT  | 11.1\%    |36.8\%     |13.8\%     |19.9\%     |953.6     |3556.9    |53922.3     |180422.3    |19.79 fps       |
-|**IOU**        | R-CNN    |16.0\%     |**38.3\%** |13.8\%     |20.7\%     |5029.4    |5795.7    |22535.1     |193041.9    |**100,840 fps** |
-|**IOU**        | EB       |**19.4\%** |28.9\%     |**17.7\%** |**18.4\%** |2311.3    |2445.9    |14796.5	  |171806.8    |6,902 fps       |
+|IOU        | R-CNN    |16.0\%     |**38.3\%** |13.8\%     |20.7\%     |5029.4    |5795.7    |22535.1     |193041.9    |**100,840 fps** |
+|IOU        | EB       |**19.4\%** |28.9\%     |**17.7\%** |**18.4\%** |2311.3    |2445.9    |14796.5	  |171806.8    |6,902 fps       |
+|**KIOU**       | EB       | **21.1\%** | 28.6\%   | **21.9\%** | **17.6\%** | 462.2  | 712.1    | 19046.8    | **159178.3** |  |
 
 ##### EB detections
 The public detections of [EB](http://zyb.im/research/EB/) are not available on the

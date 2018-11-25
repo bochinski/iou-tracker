@@ -8,12 +8,16 @@
 from time import time
 import numpy as np
 from pykalman import KalmanFilter
-
-# TODO: implement new iou / track_interpolation functions in util.py
 from util import load_mot, iou, track_interpolation
 
 def criteria(x, track):
-    # TODO: put some discription here
+    """
+    Take matching candidate and track, offset the track's last bounding box by the predicted offset, and calculate IOU.
+
+    Args:
+        x (list [roi, bbox, score]): a detection from this frame.
+        track (list [[frames], Kalman_filter]): a track containing all frames and a Kalman filter associated with it.
+    """
     dx, dy, _, _ = track[0][-1]['pred_state'] - track[0][-1]['cur_state']
     offset_vector = np.array([dy, dx, dy, dx])
     offset_roi = track[0][-1]['roi'] + offset_vector
@@ -22,7 +26,16 @@ def criteria(x, track):
 
 
 def setup_kf(imean, a=[[1, 0, 0.5, 0], [0, 1, 0, 0.5], [0, 0, 1, 0], [0, 0, 0, 1]], o=[[1, 0, 0, 0], [0, 1, 0, 0]]):
-    # TODO: put some discription here
+    """
+    Initialize Kalman filter object for each new tracks.
+    The transfermation matrix (a) and observation matrix (o) can be tuned to better suit with a specific motion pattern,
+    but to preserve generality we are using a simple constant speed model here.
+
+    Args:
+        imean (2x1 array): 1x2 array or list of the location of centroid.
+        a (array): transformation matrix that governs state transition to the next time step. Size varies with model.
+        o (array): observation matrix that defines the observable states. Size varies with model.
+    """
     return KalmanFilter(transition_matrices=a, observation_matrices=o, initial_state_mean=[*imean,0,0])
 
 
@@ -158,7 +171,7 @@ def track_iou_matlab_wrapper(detections, sigma_l, sigma_iou, sigma_p, t_min, ski
 
     num_frames = len(dets)
 
-    # this part occasionally throws ZeroDivisionError when evaluated in the DETRAC toolkit, and I use this rather silly fix
+    # this part occasionally throws ZeroDivisionError when evaluated in the DETRAC toolkit without the except clause 
     try:
         speed = num_frames / (end - start)
     except:

@@ -112,7 +112,11 @@ def iou(bbox1, bbox2):
 
 
 def track_interpolation(tracks_finished):
-    # TODO: put some discription here
+    """
+    The Kalman-IOU tracker can skip frames, however the DETRAC toolkit takes off points for each frame missing,
+    therefore skipping 50% of the frames will effectively cap the maximum MOTA at 50%.
+    Therefore we perform a simple linear interpolation to fill in the gaps.
+    """
     processed_tracks = []
     
     for ftracks in tracks_finished:
