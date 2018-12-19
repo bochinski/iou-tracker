@@ -15,9 +15,20 @@ If you think our work is useful in your research, please consider citing:
 	ADDRESS = {Lecce, Italy},
 	URL = {http://elvera.nue.tu-berlin.de/files/1517Bochinski2017.pdf},
 	}
+
+@INPROCEEDINGS{1547Bochinski2018,
+	AUTHOR = {Erik Bochinski and Tobias Senst and Thomas Sikora},
+	TITLE = {Extending IOU Based Multi-Object Tracking by Visual Information},
+	BOOKTITLE = {IEEE International Conference on Advanced Video and Signals-based Surveillance},
+	YEAR = {2018},
+	MONTH = nov,
+	PAGES = {441--446},
+}
 ```
 
 **Update** (December 2018):
+* added V-IOU results of our new paper [Extending IOU Based Multi-Object Tracking by Visual Information](http://elvera.nue.tu-berlin.de/files/1547Bochinski2018.pdf)
+* Mask R-CNN detections for UA-DETRAC added
 * CompACT parameters improved
 
 ## Demo
@@ -56,7 +67,7 @@ Example for the MOT17-04 sequence (detections can be downloaded [here](https://m
 
 ### DETRAC
 To reproduce the reported results, download and extract the [DETRAC-toolkit](http://detrac-db.rit.albany.edu/download)
-and the detections you want to evaluate. Download links for the EB detections are provided below.
+and the detections you want to evaluate. Download links for the EB and Mask R-CNN detections are provided below.
 Clone this repository into "DETRAC-MOT-toolkit/trackers/".
 Follow the instructions to configure the toolkit for tracking evaluation and set the tracker name in "DETRAC_experiment.m":
 
@@ -70,27 +81,32 @@ Note that you still need a working python environment with numpy installed.
 You should obtain something like the following results for the 'DETRAC-Train' set:
 
 ##### DETRAC-Train Results
-| Detector | PR-Rcll | PR-Prcn | PR-FAR | PR-MT | PR-PT  | PR-ML | PR-FP   | PR-FN   | PR-IDs| PR-FM | PR-MOTA | PR-MOTP | PR-MOTAL |
-| -------- | ------- | ------- | ------ | ----- | ------ | ----- | ------- | ------- | ----- | ----- | ------- | ------- | -------- |
-| EB       |37.86    |44.73    |0.10    |32.34  |12.88   |20.93  |7958.82  |163739.85|4129.40|4221.89|35.77    |40.81    |36.48     |
-| R-CNN    |27.86    |52.90    |0.11    |19.53  |17.03   |18.56  |9047.95  |157521.18|4842.18|4969.57|25.46    |44.39    |26.29     |
-| CompACT  |25.20    |49.69    |0.10    |18.50  |14.11   |19.06  |8053.54  |153026.99|2021.84|2302.83|23.46    |42.96    |23.81     |
-| ACF      |27.39    |52.68    |0.14    |20.24  |15.66   |19.40  |11553.49 |161293.27|1845.49|2101.44|25.07    |44.71    |25.39     |
+| Detector   | PR-Rcll | PR-Prcn | PR-FAR | PR-MT | PR-PT  | PR-ML | PR-FP   | PR-FN   | PR-IDs| PR-FM | PR-MOTA | PR-MOTP | PR-MOTAL |
+| --------   | ------- | ------- | ------ | ----- | ------ | ----- | ------- | ------- | ----- | ----- | ------- | ------- | -------- |
+| EB         |37.86    |44.73    |0.10    |32.34  |12.88   |20.93  |7958.82  |163739.85|4129.40|4221.89|35.77    |40.81    |36.48     |
+| R-CNN      |27.86    |52.90    |0.11    |19.53  |17.03   |18.56  |9047.95  |157521.18|4842.18|4969.57|25.46    |44.39    |26.29     |
+| CompACT    |25.20    |49.69    |0.10    |18.50  |14.11   |19.06  |8053.54  |153026.99|2021.84|2302.83|23.46    |42.96    |23.81     |
+| ACF        |27.39    |52.68    |0.14    |20.24  |15.66   |19.40  |11553.49 |161293.27|1845.49|2101.44|25.07    |44.71    |25.39     |
+| Mask R-CNN |43.21    |47.26    |0.60    |37.22  |11.46   |24.24  |50096.88 |171714.09|1021.94|929.53 |34.36    |45.43    |34.54     |
 
 ##### DETRAC-Test (Overall) Results
 The reference results are taken from the [UA-DETRAC results](http://detrac-db.rit.albany.edu/TraRet) site. Only the best tracker / detector
 combination is displayed for each reference method.
 
-| Tracker       | Detector | PR-MOTA | PR-MOTP     | PR-MT     | PR-ML     | PR-IDs   | PR-FM    | PR-FP      | PR-FN      | Speed          |
-| ------------- | -------- | ------- | ----------- | --------- | --------- | -------- | -------- | ---------- | ---------- | -------------- |
-|CEM            | CompACT  | 5.1\%     |35.2\%     |3.0\%      |35.3\%     |**267.9** |**352.3** |**12341.2** |260390.4    |4.62 fps        |
-|CMOT           | CompACT  | 12.6\%    |36.1\%     |16.1\%     |18.6\%     |285.3     |1516.8    |57885.9     |**167110.8**| & 3.79 fps     |
-|GOG            | CompACT  | 14.2\%    |37.0\%     |13.9\%     |19.9\%     |3334.6    |3172.4    |32092.9     |180183.8    |390 fps         |
-|DCT            | R-CNN    | 11.7\%    |38.0\%     |10.1\%     |22.8\%     |758.7     |742.9     |336561.2    |210855.6    |0.71 fps        |
-|H<sup>2</sup>T | CompACT  | 12.4\%    |35.7\%     |14.8\%     |19.4\%     |852.2     |1117.2    |51765.7     |173899.8    | 3.02 fps       |
-|IHTLS          | CompACT  | 11.1\%    |36.8\%     |13.8\%     |19.9\%     |953.6     |3556.9    |53922.3     |180422.3    |19.79 fps       |
-|**IOU**        | R-CNN    |16.0\%     |**38.3\%** |13.8\%     |20.7\%     |5029.4    |5795.7    |22535.1     |193041.9    |**100,840 fps** |
-|**IOU**        | EB       |**19.4\%** |28.9\%     |**17.7\%** |**18.4\%** |2311.3    |2445.9    |14796.5	  |171806.8    |6,902 fps       |
+| Tracker       | Detector    | PR-MOTA | PR-MOTP     | PR-MT     | PR-ML     | PR-IDs   | PR-FM    | PR-FP      | PR-FN      | Speed          |
+| ------------- | ----------- | ------- | ----------- | --------- | --------- | -------- | -------- | ---------- | ---------- | -------------- |
+|CEM            | CompACT     | 5.1\%     |35.2\%     |3.0\%      |35.3\%     |267.9     |352.3     |**12341.2** |260390.4    |4.62 fps        |
+|CMOT           | CompACT     | 12.6\%    |36.1\%     |16.1\%     |18.6\%     |285.3     |1516.8    |57885.9     |167110.8    |3.79 fps        |
+|GOG            | CompACT     | 14.2\%    |37.0\%     |13.9\%     |19.9\%     |3334.6    |3172.4    |32092.9     |180183.8    |390 fps         |
+|DCT            | R-CNN       | 11.7\%    |38.0\%     |10.1\%     |22.8\%     |758.7     |742.9     |336561.2    |210855.6    |0.71 fps        |
+|H<sup>2</sup>T | CompACT     | 12.4\%    |35.7\%     |14.8\%     |19.4\%     |852.2     |1117.2    |51765.7     |173899.8    |3.02 fps        |
+|IHTLS          | CompACT     | 11.1\%    |36.8\%     |13.8\%     |19.9\%     |953.6     |3556.9    |53922.3     |180422.3    |19.79 fps       |
+|**IOU**        | R-CNN    |16.0\%        |**38.3\%** |13.8\%     |20.7\%     |5029.4    |5795.7    |22535.1     |193041.9    |100,840 fps     |
+|**IOU**        | EB       |19.4\%        |28.9\%     |17.7\%     |**18.4\%** |2311.3    |2445.9    |14796.5	  |171806.8   |6,902 fps       |
+|**IOU**        | CompACT     | 16.1\%    |37.0\%     |14.8\%     |19.7\%     |2308.1    |3250.4    |24349.4     |176752.8    |**327,660 fps** |
+|**IOU**        | Mask R-CNN  | **30.7\%**|37.0\%     |30.3\%     |21.5\%     |668.0     |733.6     |17370.3     |179505.9    |14,956 fps      |
+|**V-IOU**      | CompACT     | 17.7\%    |36.4\%     |17.4\%     |18.8\%     |363.8     |1123.5    |26413.3     |**166571.7**|1117.90fps      |
+|**V-IOU**      | Mask R-CNN  | **30.7\%**|37.0\%     |**32.0\%** |22.6\%     |**162.6** |**286.2** |18046.2     |179191.2    |359.18 fps      |
 
 ##### EB detections
 The public detections of [EB](http://zyb.im/research/EB/) are not available on the
@@ -99,6 +115,13 @@ publication are available here:
 
 * [EB Train](https://tubcloud.tu-berlin.de/s/EtC6cFEYsAU0gFQ/download)
 * [EB Test](https://tubcloud.tu-berlin.de/s/oKM3dYhJbMFl1dY/download)
+
+##### Mask R-CNN detections
+These detections are generated using a recent Mask R-CNN implementation trained on COCO.
+Only bounding boxes for COCOs *car*, *bus* and *truck* classes are included.
+Note that the detector is called "frcnn" (use `options.detectorSet = {'frcnn'};` in *initialize_environment.m*).
+* [Mask R-CNN Train](https://tubcloud.tu-berlin.de/s/MnGRGdH98WY9xQr/download)
+* [Mask R-CNN Test](https://tubcloud.tu-berlin.de/s/EztsFgm5AL8Jwtt/download)
 
 ### MOT17
 The IOU Tracker was evaluated on the MOT17 benchmark as well. To determine the best parameters for each detector, an

@@ -1,10 +1,17 @@
 function [stateInfo, speed] = run_tracker(curSequence, baselinedetections)
 %% tracker configuration
-%% R-CNN
+
+%% Mask R-CNN (frcnn)
 sigma_l = 0;
-sigma_h = 0.7;
-sigma_iou = 0.5;
-t_min = 2;
+sigma_h = 0.95;
+sigma_iou = 0.6;
+t_min = 7;
+
+% %% R-CNN
+% sigma_l = 0;
+% sigma_h = 0.7;
+% sigma_iou = 0.5;
+% t_min = 2;
 
 % %% ACF
 % sigma_l = 0;
