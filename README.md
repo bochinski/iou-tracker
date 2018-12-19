@@ -17,6 +17,9 @@ If you think our work is useful in your research, please consider citing:
 	}
 ```
 
+**Update** (December 2018):
+* CompACT parameters improved
+
 ## Demo
 Several demo scripts are included to reproduce the reported results on the [UA-DETRAC](http://detrac-db.rit.albany.edu/)
 and the [MOT](https://motchallenge.net/) 16/17 benchmarks.
@@ -71,7 +74,7 @@ You should obtain something like the following results for the 'DETRAC-Train' se
 | -------- | ------- | ------- | ------ | ----- | ------ | ----- | ------- | ------- | ----- | ----- | ------- | ------- | -------- |
 | EB       |37.86    |44.73    |0.10    |32.34  |12.88   |20.93  |7958.82  |163739.85|4129.40|4221.89|35.77    |40.81    |36.48     |
 | R-CNN    |27.86    |52.90    |0.11    |19.53  |17.03   |18.56  |9047.95  |157521.18|4842.18|4969.57|25.46    |44.39    |26.29     |
-| CompACT  |25.15    |49.64    |0.09    |18.40  |14.15   |18.91  |7681.50  |152078.88|2177.44|2282.27|23.44    |42.88    |23.8191   |
+| CompACT  |25.20    |49.69    |0.10    |18.50  |14.11   |19.06  |8053.54  |153026.99|2021.84|2302.83|23.46    |42.96    |23.81     |
 | ACF      |27.39    |52.68    |0.14    |20.24  |15.66   |19.40  |11553.49 |161293.27|1845.49|2101.44|25.07    |44.71    |25.39     |
 
 ##### DETRAC-Test (Overall) Results

@@ -15,7 +15,7 @@ t_min = 2;
 % %% CompACT
 % sigma_l = 0;
 % sigma_h = 0.2;
-% sigma_iou = 0.5;
+% sigma_iou = 0.4;
 % t_min = 2;
 
 % %% EB
