@@ -23,6 +23,8 @@ If you think our work is useful in your research, please consider citing:
 	YEAR = {2018},
 	MONTH = nov,
 	PAGES = {441--446},
+	ADDRESS = {Auckland, New Zealand},
+	URL = {http://elvera.nue.tu-berlin.de/files/1547Bochinski2018.pdf}
 }
 ```
 
