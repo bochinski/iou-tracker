@@ -2,6 +2,7 @@
 Python implementation of the IOU/V-IOU Tracker described in the AVSS 2017/2018 papers:
 
 [High-Speed Tracking-by-Detection Without Using Image Information](http://elvera.nue.tu-berlin.de/files/1517Bochinski2017.pdf)
+
 [Extending IOU Based Multi-Object Tracking by Visual Information](http://elvera.nue.tu-berlin.de/files/1547Bochinski2018.pdf)
 
 This project is released under the MIT License (details in LICENSE file).
