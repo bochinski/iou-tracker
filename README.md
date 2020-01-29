@@ -39,6 +39,7 @@ If you think our work is useful in your research, please consider citing:
   * [MOT17](#MOT17)
   * [CVPR19](#CVPR19)
 - [Visdrone-MOT](#Visdrone-MOT)
+- [Contact](#Contact)
 
 **Update** (Jan 2020):
 * added V-IOU Code
