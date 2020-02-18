@@ -7,6 +7,7 @@
 
 import numpy as np
 import csv
+import os
 
 
 visdrone_classes = {'car': 4, 'bus': 9, 'truck': 6, 'pedestrian': 1, 'van': 5}
@@ -174,7 +175,7 @@ def save_to_csv(out_path, tracks, fmt='motchallenge'):
         out_path (str): path to output csv file.
         tracks (list): list of tracks to store.
     """
-
+    os.makedirs(os.path.dirname(out_path), exist_ok=True)
     with open(out_path, "w") as ofile:
         if fmt == 'motchallenge':
             field_names = ['frame', 'id', 'x', 'y', 'w', 'h', 'score', 'wx', 'wy', 'wz']
