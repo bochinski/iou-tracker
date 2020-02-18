@@ -45,7 +45,7 @@ def main(args):
             det_path = args.benchmark_dir + "/" + seq + "/det/det.txt"
             out_path = args.res_dir + "/" + seq + ".txt"
 
-            detections = load_mot(det_path)
+            detections = load_mot(det_path, with_classes=False)
 
             start = time()
             tracks = track_iou(detections, sigma_l, sigma_h, sigma_iou, t_min)
